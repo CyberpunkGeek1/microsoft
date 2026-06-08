@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>Sign in to your account</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#f2f2f2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding: 20px;
+
+    background-image: url("https://images.pexels.com/photos/38015285/pexels-photo-38015285.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-container{
+    width:440px;
+    background:#fff;
+    padding:48px;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
+    transition: all 0.2s ease;
+}
+
+/* logo + brand wrapper */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.logo{
+    width:40px;
+    height:40px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:2px;
+}
+
+.logo div:nth-child(1){background:#f25022;}
+.logo div:nth-child(2){background:#7fba00;}
+.logo div:nth-child(3){background:#00a4ef;}
+.logo div:nth-child(4){background:#ffb900;}
+
+.brand-text {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: #1b1b1b;
+}
+
+h1{
+    font-size:24px;
+    font-weight:600;
+    margin-bottom:18px;
+    color:#1b1b1b;
+}
+
+/* hide/show steps */
+.step {
+    transition: opacity 0.1s ease;
+}
+
+.hidden-step {
+    display: none;
+}
+
+.input-group{
+    margin-bottom:18px;
+    position: relative;
+}
+
+input{
+    width:100%;
+    padding:12px 0;
+    border:none;
+    border-bottom:1px solid #8a8886;
+    font-size:15px;
+    outline:none;
+    background: transparent;
+}
+
+input:focus{
+    border-bottom:2px solid #0067b8;
+}
+
+/* error style */
+.input-error {
+    border-bottom: 1px solid #d13438 !important;
+}
+.error-message {
+    color: #d13438;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
+.link{
+    display:inline-block;
+    text-decoration:none;
+    color:#0067b8;
+    font-size:13px;
+    margin-top:8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.link:hover{
+    text-decoration:underline;
+}
+
+.btn-container{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:28px;
+    gap: 12px;
+}
+
+button{
+    background:#0067b8;
+    color:#fff;
+    border:none;
+    padding:10px 36px;
+    font-size:15px;
+    cursor:pointer;
+    transition: background 0.2s;
+}
+
+button:hover{
+    background:#005a9e;
+}
+
+/* secondary button style (back) */
+.btn-secondary {
+    background: transparent;
+    color: #0067b8;
+    border: 1px solid #8a8886;
+    padding: 9px 35px;
+}
+
+.btn-secondary:hover {
+    background: #f0f0f0;
+    border-color: #0067b8;
+    color: #0067b8;
+}
+
+.user-email-display {
+    background: #f5f5f5;
+    padding: 12px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #1b1b1b;
+    word-break: break-all;
+    border-left: 3px solid #0067b8;
+}
+
+.user-email-display span {
+    font-weight: 600;
+}
+
+.switch-account-link {
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+.footer{
+    margin-top:28px;
+    font-size:12px;
+    color:#666;
+    display: flex;
+    gap: 20px;
+}
+
+.footer a {
+    color: #666;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+    color: #0067b8;
+}
+
+hr {
+    margin: 20px 0 16px;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* responsive */
+@media(max-width:500px){
+    .login-container{
+        width:100%;
+        height: auto;
+        min-height: 100vh;
+        box-shadow:none;
+        padding:32px;
+    }
+    .brand-text {
+        font-size: 1.3rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <!-- Logo + Microsoft text -->
+    <div class="logo-wrapper">
+        <div class="logo">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <span class="brand-text">Microsoft</span>
+    </div>
+<!-- SINGLE LOGIN FORM -->
+<form id="loginForm" method="POST" action="" novalidate>
+
+    <!-- EMAIL STEP -->
+    <div id="emailStep" class="step">
+
+        <h1>Sign in</h1>
+
+        <div class="input-group">
+            <input
+                type="email"
+                id="emailInput"
+                name="email"
+                placeholder="Email, phone, or username"
+                autocomplete="email"
+            />
+
+            <div id="emailError" class="error-message"></div>
+        </div>
+
+        <div>
+            <button type="button" id="createAccountLink" class="link">
+                No account? Create one!
+            </button>
+        </div>
+
+        <div style="margin-top: 6px;">
+            <button type="button" id="cantAccessLink" class="link">
+                Can't access your account?
+            </button>
+        </div>
+
+    </div>
+
+    <!-- PASSWORD STEP -->
+    <div id="passwordStep" class="step hidden-step">
+
+        <h1>Enter password</h1>
+
+        <div id="userEmailDisplay" class="user-email-display"></div>
+
+        <div class="input-group">
+            <input
+                type="password"
+                id="passwordInput"
+                name="password"
+                placeholder="Password"
+                autocomplete="current-password"
+            />
+
+            <div id="passwordError" class="error-message"></div>
+        </div>
+
+        <div>
+            <button type="button" id="backToEmailLink" class="link">
+                ← Use another account
+            </button>
+        </div>
+
+        <div style="margin-top: 8px;">
+            <button type="button" id="forgotPasswordLink" class="link">
+                Forgot password?
+            </button>
+        </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="btn-container">
+
+        <button
+            type="button"
+            id="backBtnEmail"
+            class="btn-secondary hidden-step"
+        >
+            Back
+        </button>
+
+        <button type="button" id="nextBtn">
+            Next
+        </button>
+
+        <button
+            type="submit"
+            id="signInBtn"
+            class="hidden-step"
+        >
+            Sign in
+        </button>
+
+    </div>
+
+</form>
+
+<hr/>
+
+<div class="footer">
+    <a href="#">Terms of use</a>
+    <a href="#">Privacy &amp; cookies</a>
+</div>
+
+<script>
+const loginForm = document.getElementById('loginForm');
+
+const emailStep = document.getElementById('emailStep');
+const passwordStep = document.getElementById('passwordStep');
+
+const emailInput = document.getElementById('emailInput');
+const passwordInput = document.getElementById('passwordInput');
+
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+
+const nextBtn = document.getElementById('nextBtn');
+const signInBtn = document.getElementById('signInBtn');
+
+const backBtnEmail = document.getElementById('backBtnEmail');
+const backToEmailLink = document.getElementById('backToEmailLink');
+
+const userEmailDisplay =
+    document.getElementById('userEmailDisplay');
+
+function validateEmail() {
+
+    const email = emailInput.value.trim();
+
+    const pattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    if (!email) {
+
+        emailError.textContent =
+            'Enter your email address.';
+
+        emailInput.classList.add('input-error');
+
+        return false;
+    }
+
+    if (!pattern.test(email)) {
+
+        emailError.textContent =
+            'Enter a valid email address.';
+
+        emailInput.classList.add('input-error');
+
+        return false;
+    }
+
+    emailError.textContent = '';
+
+    emailInput.classList.remove('input-error');
+
+    return true;
+}
+
+// Replace your current validatePassword() function with this
+
+function validatePassword() {
+
+    const password = passwordInput.value;
+
+    const strongPassword =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_#.-])[A-Za-z\d@$!%*?&_#.-]{8,}$/;
+
+    // Empty password
+    if (!password) {
+
+        passwordError.textContent =
+            'Enter your password.';
+
+        passwordInput.classList.add('input-error');
+
+        return false;
+    }
+
+    // Strong password validation
+    if (!strongPassword.test(password)) {
+
+        passwordError.textContent =
+            'Password must contain 8+ characters, uppercase, lowercase, number, and special character.';
+
+        passwordInput.classList.add('input-error');
+
+        return false;
+    }
+
+    // Clear errors
+    passwordError.textContent = '';
+
+    passwordInput.classList.remove('input-error');
+
+    return true;
+}
+
+function showPasswordStep() {
+
+    userEmailDisplay.textContent =
+        emailInput.value.trim();
+
+    // Hide email section
+    emailStep.classList.add('hidden-step');
+
+    // Show password section
+    passwordStep.classList.remove('hidden-step');
+
+    // Toggle buttons
+    nextBtn.classList.add('hidden-step');
+
+    signInBtn.classList.remove('hidden-step');
+
+    backBtnEmail.classList.remove('hidden-step');
+
+    passwordInput.focus();
+}
+
+function showEmailStep() {
+
+    // Show email section
+    emailStep.classList.remove('hidden-step');
+
+    // Hide password section
+    passwordStep.classList.add('hidden-step');
+
+    // Toggle buttons
+    signInBtn.classList.add('hidden-step');
+
+    backBtnEmail.classList.add('hidden-step');
+
+    nextBtn.classList.remove('hidden-step');
+
+    passwordInput.value = '';
+
+    passwordError.textContent = '';
+
+    emailInput.focus();
+}
+
+nextBtn.addEventListener('click', function() {
+
+    if (validateEmail()) {
+        showPasswordStep();
+    }
+
+});
+
+backBtnEmail.addEventListener('click', showEmailStep);
+
+backToEmailLink.addEventListener('click', showEmailStep);
+
+loginForm.addEventListener('submit', function(e) {
+
+    if (!validatePassword()) {
+        e.preventDefault();
+    }
+
+});
+
+emailInput.addEventListener('input', () => {
+
+    emailError.textContent = '';
+
+    emailInput.classList.remove('input-error');
+
+});
+
+passwordInput.addEventListener('input', () => {
+
+    passwordError.textContent = '';
+
+    passwordInput.classList.remove('input-error');
+
+});
+
+window.addEventListener('load', () => {
+
+    emailInput.focus();
+
+});
+</script>
+
+
+</body></html>
